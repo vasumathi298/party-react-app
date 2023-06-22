@@ -19,6 +19,7 @@ import MainHeader from './components/MainHeader';
 import SideMenu from './components/SideMenu';
 import './App.css';
 
+
 class App extends Component {
   static audio;
 

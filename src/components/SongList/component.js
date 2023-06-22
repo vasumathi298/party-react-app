@@ -2,7 +2,13 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
 import "./SongList.css";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { faCalendarPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPauseCircle,faPlayCircle } from "@fortawesome/free-solid-svg-icons";
+import { faClock } from "@fortawesome/free-solid-svg-icons";
+import { displayPlaylist } from "../../actions/songActions";
 class SongList extends Component {
   componentWillReceiveProps(nextProps) {
     if (
@@ -25,8 +31,8 @@ class SongList extends Component {
     return this.props.songs.map((song, i) => {
       const buttonClass =
         song.track.id === this.props.songId && !this.props.songPaused
-          ? "fa-pause-circle-o"
-          : "fa-play-circle-o";
+          ? faPauseCircle
+          : faPlayCircle;
 
       return (
         <li
@@ -51,7 +57,7 @@ class SongList extends Component {
             }}
             className="play-song"
           >
-            <i className={`fa ${buttonClass} play-btn`} aria-hidden="true" />
+            <FontAwesomeIcon icon={buttonClass} aria-hidden="true" />
           </div>
 
           {this.props.viewType !== "songs" && (
@@ -62,16 +68,16 @@ class SongList extends Component {
               }}
             >
               {this.props.songAddedId === song.track.id ? (
-                <i className="fa fa-check add-song" aria-hidden="true" />
+                  <FontAwesomeIcon icon={faCheck} className="add-song" aria-hidden="true" />
               ) : (
-                  <i className="fa fa-plus add-song" aria-hidden="true" />
+                <FontAwesomeIcon icon={faPlus} className="add-song" aria-hidden="true" />
                 )}
             </p>
           )}
 
           {this.props.viewType === "songs" && (
             <p className="add-song">
-              <i className="fa fa-check" aria-hidden="true" />
+              <FontAwesomeIcon icon={faCheck} className="add-song" aria-hidden="true" />
             </p>
           )}
 
@@ -94,6 +100,13 @@ class SongList extends Component {
           <div className="song-length">
             <p>{this.msToMinutesAndSeconds(song.track.duration_ms)}</p>
           </div>
+          <div className="song-length">
+          <FontAwesomeIcon
+                icon={faPlus}
+                className="add-song-icon"
+                onClick={this.props.displayPlaylist(this.props.token)}
+              />
+          </div>
         </li>
       );
     });
@@ -113,11 +126,11 @@ class SongList extends Component {
             <p>Album</p>
           </div>
           <div className="song-added-header">
-            <i className="fa fa-calendar-plus-o" aria-hidden="true" />
+          <FontAwesomeIcon icon={faCalendarPlus} />
           </div>
           <div className="song-length-header">
             <p>
-              <i className="fa fa-clock-o" aria-hidden="true" />
+            <FontAwesomeIcon icon={faClock} />
             </p>
           </div>
         </div>
@@ -146,6 +159,7 @@ SongList.propTypes = {
   resumeSong: PropTypes.func,
   pauseSong: PropTypes.func,
   addSongToLibrary: PropTypes.func,
+  displayPlaylist: PropTypes.func
 };
 
 export default SongList;

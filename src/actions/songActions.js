@@ -181,3 +181,22 @@ export const updateViewType = (view) => {
     view
   };
 };
+
+
+export const displayPlaylist = (accessToken) => {
+  console.log("inside display playlist");
+  return dispatch => {
+    const request = new Request(`https://api.spotify.com/v1/me/playlists`, {
+      headers: new Headers({
+        'Authorization': 'Bearer ' + accessToken
+      })
+    });
+    fetch(request).then(res => {
+      console.log(res.json());
+      return res.json();
+    }).then(res => {
+      
+    }).catch(err => {
+    });
+  };
+};
