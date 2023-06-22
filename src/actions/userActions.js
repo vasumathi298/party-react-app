@@ -17,7 +17,8 @@ export const fetchUser = (accessToken) => {
     const request = new Request('https://api.spotify.com/v1/me', {
       headers: new Headers({
         'Authorization': 'Bearer ' + accessToken
-      })
+      }),
+      
     });
 
     fetch(request).then(res => {
@@ -64,6 +65,35 @@ export const addSongToLibrary = (accessToken, id) => {
       }
     }).catch(err => {
       dispatch(addSongToLibraryError(err));
+    });
+  };
+};
+
+
+export const addSongToPlaylist = (accessToken, playListId, songId) => {
+
+  return dispatch => {
+
+    const request = new Request(`https://api.spotify.com/v1/playlists/${playListId}/tracks`, {
+      method: 'POST',
+      headers: new Headers({
+        'Authorization': 'Bearer ' + accessToken,
+        'Content-Type': 'application/json'
+      }),
+      body: JSON.stringify({  
+        uris: [songId],
+        position: 0,
+      })
+    });
+    console.log("songid is");
+
+    console.log(songId);
+    fetch(request).then(res => {
+      if(res.ok) {
+        console.log(res.json());
+      }
+    }).catch(err => {
+      console.log(err.JSON);
     });
   };
 };

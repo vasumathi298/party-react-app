@@ -8,8 +8,22 @@ import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { faCalendarPlus } from "@fortawesome/free-solid-svg-icons";
 import { faPauseCircle,faPlayCircle } from "@fortawesome/free-solid-svg-icons";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
-import { displayPlaylist } from "../../actions/songActions";
+
 class SongList extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      activeSongId: null,
+    };
+
+  }
+  
+
+  handleTogglePopUp = (songId) => {
+    this.setState((prevState) => ({
+      activeSongId: prevState.activeSongId === songId ? null : songId,
+    }));
+  };
   componentWillReceiveProps(nextProps) {
     if (
       nextProps.token !== "" &&
@@ -18,6 +32,9 @@ class SongList extends Component {
       nextProps.viewType === "songs"
     ) {
       this.props.fetchSongs(nextProps.token);
+      console.log(nextProps.userId);
+
+      
     }
   }
 
@@ -28,12 +45,36 @@ class SongList extends Component {
   }
 
   renderSongs() {
+    let playListNames = null;
+    if (this.props.playlistMenu) {
+      playListNames = this.props.playlistMenu.map((playlist) => {
+      return playlist.name;
+    });
+}
+
+    console.log("playlist names");
+    console.log(playListNames); 
+    
+
+    let playListIds = null;
+    if (this.props.playlistMenu) {
+      playListIds = this.props.playlistMenu.map((playlist) => {
+      return playlist.id;
+    });
+}
+
+    console.log("playlist id");
+    console.log(playListIds); 
+    
+
     return this.props.songs.map((song, i) => {
+    
       const buttonClass =
         song.track.id === this.props.songId && !this.props.songPaused
           ? faPauseCircle
           : faPlayCircle;
-
+          const { activeSongId } = this.state;
+          const isPopUpVisible = activeSongId === song.track.id;
       return (
         <li
           className={
@@ -104,9 +145,25 @@ class SongList extends Component {
           <FontAwesomeIcon
                 icon={faPlus}
                 className="add-song-icon"
-                onClick={this.props.displayPlaylist(this.props.token)}
+                onClick={() => this.handleTogglePopUp(song.track.id)}
               />
           </div>
+          {isPopUpVisible && (
+        <div className="pop-up-container">
+        <div className="pop-up">
+          <table className="pop-up-table">
+            <tbody>
+              {playListNames.map((name, index) => (
+                <tr key={index}>
+                  <td onClick= {() => {console.log("playlist id is", playListIds[index]);console.log("active track id is", song.track.uri);this.props.addSongToPlaylist(this.props.token, playListIds[index], song.track.uri)}}>{name}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      )}
+          
         </li>
       );
     });
@@ -159,7 +216,11 @@ SongList.propTypes = {
   resumeSong: PropTypes.func,
   pauseSong: PropTypes.func,
   addSongToLibrary: PropTypes.func,
-  displayPlaylist: PropTypes.func
+  displayPlaylist: PropTypes.func,
+  userId: PropTypes.string,
+  fetchPlaylistsMenu:PropTypes.func,
+  playlistMenu: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+  addSongToPlaylist: PropTypes.func,
 };
 
 export default SongList;

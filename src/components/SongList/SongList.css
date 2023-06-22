@@ -165,3 +165,35 @@
 .add-song .fa:hover {
   -webkit-text-stroke: 2px rgb(24, 24, 24);
 }
+
+.pop-up-container {
+  position: relative;
+}
+
+.pop-up {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  background-color:  rgb(51, 51, 51);
+  padding: 10px;
+  z-index: 9999;
+}
+
+
+
+.pop-up-table td {
+  padding: 0px;
+  border: 1px solid white collapse;
+  font-family: 'Proxima Nova', Georgia, sans-serif;
+  min-width: 200px;
+}
+
+
+
+
+
+
+
+
+
+

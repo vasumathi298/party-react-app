@@ -2,8 +2,8 @@ import SongList from "./component";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { fetchSongs,displayPlaylist } from '../../actions/songActions';
-import { addSongToLibrary } from '../../actions/userActions';
-
+import { addSongToLibrary, addSongToPlaylist } from '../../actions/userActions';
+import { fetchPlaylistsMenu } from "../../actions/playlistActions";
 const mapStateToProps = (state) => {
 
   return {
@@ -17,6 +17,8 @@ const mapStateToProps = (state) => {
     songId: state.songsReducer.songId,
     songAddedId: state.userReducer.songId || '',
     viewType: state.songsReducer.viewType,
+    userId: state.userReducer.user ? state.userReducer.user.id : '',
+    playlistMenu: state.playlistReducer.playlistMenu ? state.playlistReducer.playlistMenu : '',
   };
 
 };
@@ -26,7 +28,9 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     fetchSongs,
     addSongToLibrary,
-    displayPlaylist
+    displayPlaylist,
+    fetchPlaylistsMenu,
+    addSongToPlaylist,
   }, dispatch);
 
 };
