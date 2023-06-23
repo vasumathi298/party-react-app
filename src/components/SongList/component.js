@@ -7,8 +7,8 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { faCalendarPlus } from "@fortawesome/free-solid-svg-icons";
 import { faPauseCircle,faPlayCircle } from "@fortawesome/free-solid-svg-icons";
-import { faClock } from "@fortawesome/free-solid-svg-icons";
-
+import { faClock, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 class SongList extends Component {
   constructor(props){
     super(props);
@@ -75,6 +75,7 @@ class SongList extends Component {
           : faPlayCircle;
           const { activeSongId } = this.state;
           const isPopUpVisible = activeSongId === song.track.id;
+          const reorder=["Up","Down"];
       return (
         <li
           className={
@@ -145,9 +146,25 @@ class SongList extends Component {
           <FontAwesomeIcon
                 icon={faPlus}
                 className="add-song-icon"
+                title="Add Song to Playlist"
                 onClick={() => this.handleTogglePopUp(song.track.id)}
               />
           </div>
+          <div  className="song-length">
+            <FontAwesomeIcon icon={faTrash} className="delete-icon" title="Delete Song from Playlist" onClick={()=>
+            this.handleTogglePopUp(song.track.id)
+            } />
+          </div>
+          <div  className="song-length">
+          <FontAwesomeIcon icon={faBars} className="reorder-icon" title="Reorder Playlist"
+          onClick={()=>
+            this.handleTogglePopUp(song.track.id)
+            }
+          />
+          </div>
+
+          
+          
           {isPopUpVisible && (
         <div className="pop-up-container">
         <div className="pop-up">
@@ -163,6 +180,25 @@ class SongList extends Component {
         </div>
       </div>
       )}
+
+    {isPopUpVisible && (
+        <div className="pop-up-container">
+        <div className="pop-up">
+          <table className="pop-up-table">
+            <tbody>
+              {playListNames.map((name, index) => (
+                <tr key={index}>
+                  <td onClick= {() => {console.log("inside delete");console.log("playlist id is", playListIds[index]);console.log("active track id is", song.track.uri);this.props.deleteSongFromPlaylist(this.props.token, playListIds[index], song.track.uri)}}>{name}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      )}
+
+
+
           
         </li>
       );
@@ -172,30 +208,31 @@ class SongList extends Component {
   render() {
     return (
       <div>
-        <div className="song-header-container">
-          <div className="song-title-header">
-            <p>Title</p>
-          </div>
-          <div className="song-artist-header">
-            <p>Artist</p>
-          </div>
-          <div className="song-album-header">
-            <p>Album</p>
-          </div>
-          <div className="song-added-header">
-          <FontAwesomeIcon icon={faCalendarPlus} />
-          </div>
-          <div className="song-length-header">
-            <p>
-            <FontAwesomeIcon icon={faClock} />
-            </p>
-          </div>
+      <div className="song-header-container row">
+        <div className="song-title-header col">
+          <p>Title</p>
         </div>
-        {this.props.songs &&
-          !this.props.fetchSongsPending &&
-          !this.props.fetchPlaylistSongsPending &&
-          this.renderSongs()}
+        <div className="song-artist-header col">
+          <p>Artist</p>
+        </div>
+        <div className="song-album-header col">
+          <p>Album</p>
+        </div>
+        <div className="song-added-header col">
+          <FontAwesomeIcon icon={faCalendarPlus} />
+        </div>
+        <div className="song-length-header col">
+          <p>
+            <FontAwesomeIcon icon={faClock} />
+          </p>
+        </div>
       </div>
+      {this.props.songs &&
+        !this.props.fetchSongsPending &&
+        !this.props.fetchPlaylistSongsPending &&
+        this.renderSongs()}
+    </div>
+   
     );
   }
 }
@@ -221,6 +258,7 @@ SongList.propTypes = {
   fetchPlaylistsMenu:PropTypes.func,
   playlistMenu: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   addSongToPlaylist: PropTypes.func,
+  deleteSongFromPlaylist: PropTypes.func,
 };
 
 export default SongList;

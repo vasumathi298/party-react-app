@@ -5,6 +5,7 @@ import thunk from "redux-thunk";
 import { Provider } from "react-redux";
 import reducers from "./reducers";
 import App from "./App";
+import AppRouter from "./AppRouter";
 
 //create the redux store
 const store = createStore(
@@ -15,7 +16,7 @@ const store = createStore(
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <App/>
   </Provider>,
   document.getElementById("root")
 );

@@ -200,3 +200,55 @@ export const displayPlaylist = (accessToken) => {
     });
   };
 };
+
+export const deleteSongFromPlaylist=(accessToken,playListId, songId)=>{
+  return dispatch => {
+
+    const request = new Request(`https://api.spotify.com/v1/playlists/${playListId}/tracks`, {
+      method: 'DELETE',
+      headers: new Headers({
+        'Authorization': 'Bearer ' + accessToken,
+        'Content-Type': 'application/json'
+      }),
+      body: JSON.stringify({  
+        tracks: [{uri: songId}],
+        position: 0,
+      })
+    });
+    console.log("songid is");
+
+    console.log(songId);
+    fetch(request).then(res => {
+      if(res.ok) {
+        console.log(res.json());
+      }
+    }).catch(err => {
+      console.log(err.JSON);
+    });
+  };
+};
+
+
+export const reorderInlaylist=(accessToken,playListId, start, before)=>{
+  return dispatch => {
+
+    const request = new Request(`https://api.spotify.com/v1/playlists/${playListId}/tracks`, {
+      method: 'DELETE',
+      headers: new Headers({
+        'Authorization': 'Bearer ' + accessToken,
+        'Content-Type': 'application/json'
+      }),
+      body: JSON.stringify({  
+        range_start: start,
+        insert_before: before
+      })
+    });
+    fetch(request).then(res => {
+      if(res.ok) {
+        console.log(res.json());
+      }
+    }).catch(err => {
+      console.log(err.JSON);
+    });
+  };
+};

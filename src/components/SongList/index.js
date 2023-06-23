@@ -1,7 +1,7 @@
 import SongList from "./component";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { fetchSongs,displayPlaylist } from '../../actions/songActions';
+import { fetchSongs,displayPlaylist,deleteSongFromPlaylist } from '../../actions/songActions';
 import { addSongToLibrary, addSongToPlaylist } from '../../actions/userActions';
 import { fetchPlaylistsMenu } from "../../actions/playlistActions";
 const mapStateToProps = (state) => {
@@ -31,6 +31,7 @@ const mapDispatchToProps = (dispatch) => {
     displayPlaylist,
     fetchPlaylistsMenu,
     addSongToPlaylist,
+    deleteSongFromPlaylist,
   }, dispatch);
 
 };
