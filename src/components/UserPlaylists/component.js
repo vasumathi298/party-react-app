@@ -49,6 +49,8 @@ class UserPlaylists extends Component {
         this.props.token,
         playlistName
       );
+      window.location.reload();
+
       this.props.fetchPlaylistsMenu(this.props.userId, this.props.token);
 
     };

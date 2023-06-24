@@ -9,6 +9,7 @@ import { faCalendarPlus } from "@fortawesome/free-solid-svg-icons";
 import { faPauseCircle,faPlayCircle } from "@fortawesome/free-solid-svg-icons";
 import { faClock, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch } from "react-redux";
 class SongList extends Component {
   constructor(props){
     super(props);
@@ -19,11 +20,13 @@ class SongList extends Component {
   }
   
 
-  handleTogglePopUp = (songId) => {
+  handleTogglePopUp = (songId, actionType) => {
     this.setState((prevState) => ({
       activeSongId: prevState.activeSongId === songId ? null : songId,
+      activeActionType: actionType,
     }));
   };
+
   componentWillReceiveProps(nextProps) {
     if (
       nextProps.token !== "" &&
@@ -65,6 +68,7 @@ class SongList extends Component {
 
     console.log("playlist id");
     console.log(playListIds); 
+
     
 
     return this.props.songs.map((song, i) => {
@@ -73,7 +77,7 @@ class SongList extends Component {
         song.track.id === this.props.songId && !this.props.songPaused
           ? faPauseCircle
           : faPlayCircle;
-          const { activeSongId } = this.state;
+          const { activeSongId,activeActionType } = this.state;
           const isPopUpVisible = activeSongId === song.track.id;
           const reorder=["Up","Down"];
       return (
@@ -143,61 +147,51 @@ class SongList extends Component {
             <p>{this.msToMinutesAndSeconds(song.track.duration_ms)}</p>
           </div>
           <div className="song-length">
-          <FontAwesomeIcon
-                icon={faPlus}
-                className="add-song-icon"
-                title="Add Song to Playlist"
-                onClick={() => this.handleTogglePopUp(song.track.id)}
-              />
-          </div>
-          <div  className="song-length">
-            <FontAwesomeIcon icon={faTrash} className="delete-icon" title="Delete Song from Playlist" onClick={()=>
-            this.handleTogglePopUp(song.track.id)
-            } />
-          </div>
-          <div  className="song-length">
-          <FontAwesomeIcon icon={faBars} className="reorder-icon" title="Reorder Playlist"
-          onClick={()=>
-            this.handleTogglePopUp(song.track.id)
-            }
-          />
-          </div>
+  <FontAwesomeIcon
+    icon={faPlus}
+    className="add-song-icon"
+    title="Add Song to Playlist"
+    onClick={() => this.handleTogglePopUp(song.track.id, 'add')}
+  />
+</div>
+<div className="song-length">
+  <FontAwesomeIcon
+    icon={faTrash}
+    className="delete-icon"
+    title="Delete Song from Playlist"
+    onClick={() => this.handleTogglePopUp(song.track.id, 'delete')}
+  />
+</div>
 
-          
-          
-          {isPopUpVisible && (
-        <div className="pop-up-container">
-        <div className="pop-up">
-          <table className="pop-up-table">
-            <tbody>
-              {playListNames.map((name, index) => (
-                <tr key={index}>
-                  <td onClick= {() => {console.log("playlist id is", playListIds[index]);console.log("active track id is", song.track.uri);this.props.addSongToPlaylist(this.props.token, playListIds[index], song.track.uri)}}>{name}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-      )}
-
-    {isPopUpVisible && (
-        <div className="pop-up-container">
-        <div className="pop-up">
-          <table className="pop-up-table">
-            <tbody>
-              {playListNames.map((name, index) => (
-                <tr key={index}>
-                  <td onClick= {() => {console.log("inside delete");console.log("playlist id is", playListIds[index]);console.log("active track id is", song.track.uri);this.props.deleteSongFromPlaylist(this.props.token, playListIds[index], song.track.uri)}}>{name}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-      )}
-
-
+{isPopUpVisible && (
+  <div className="pop-up-container">
+    <div className="pop-up">
+      <table className="pop-up-table">
+        <tbody>
+          {playListNames.map((name, index) => (
+            <tr key={index}>
+              <td
+                onClick={() => {
+                  console.log("inside action");
+                  console.log("playlist id is", playListIds[index]);
+                  console.log("active track id is", song.track.uri);
+                  if (activeActionType === 'add') {
+                    this.props.addSongToPlaylist(this.props.token, playListIds[index], song.track.uri);
+                  } else if (activeActionType === 'delete') {
+                    this.props.deleteSongFromPlaylist(this.props.token, playListIds[index], song.track.uri);
+                  }
+                  window.location.reload();
+                }}
+              >
+                {name}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+)}
 
           
         </li>

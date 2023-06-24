@@ -220,8 +220,11 @@ export const deleteSongFromPlaylist=(accessToken,playListId, songId)=>{
     console.log(songId);
     fetch(request).then(res => {
       if(res.ok) {
-        console.log(res.json());
+        console.log(res);
       }
+      return res.json();
+    }).then (res=>{
+       console.log(res);
     }).catch(err => {
       console.log(err.JSON);
     });
