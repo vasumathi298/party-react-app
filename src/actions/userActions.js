@@ -28,6 +28,8 @@ export const fetchUser = (accessToken) => {
       }
       return res.json();
     }).then(res => {
+      console.log("user details");
+      console.log(res);
       dispatch(fetchUserSuccess(res));
     }).catch(err => {
       dispatch(fetchUserError(err));

@@ -4,8 +4,9 @@ import './ArtWork.css';
 
 const ArtWork = (albumArtwork) => (
   <div className='album-artwork-container'>
-    <img alt="artwork" className='album-artwork' src={albumArtwork.albumImage} />
-  </div>
+{albumArtwork && albumArtwork.albumImage && (
+  <img alt="artwork" className="album-artwork" src={albumArtwork.albumImage} />
+)}  </div>
 );
 
 
