@@ -8,7 +8,8 @@ import artistsReducer from './artistsReducer';
 import uiReducer from './uiReducer';
 import browseReducer from './browseReducer';
 import soundReducer from './soundReducer';
-
+import { joinReducer } from "../Spotify/reducers/joinReducer";
+import { partyReducer } from "../Spotify/reducers/partyReducer";
 export default combineReducers({
   userReducer,
   tokenReducer,
@@ -18,5 +19,7 @@ export default combineReducers({
   artistsReducer,
   uiReducer,
   browseReducer,
-  soundReducer
+  soundReducer,
+  party: partyReducer,
+  joinPartyRed: joinReducer, // Add the join party reducer
 });
