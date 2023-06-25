@@ -11,6 +11,7 @@ import soundReducer from './soundReducer';
 import { joinReducer } from "../Spotify/reducers/joinReducer";
 import { partyReducer } from "../Spotify/reducers/partyReducer";
 import adminReducer from "../admin/admin-reducers/reducers"
+
 export default combineReducers({
   userReducer,
   tokenReducer,
@@ -23,4 +24,5 @@ export default combineReducers({
   soundReducer,
   party: partyReducer,
   joinPartyRed: joinReducer, // Add the join party reducer
+  admin: adminReducer
 });

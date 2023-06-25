@@ -8,12 +8,12 @@ import { useSelector, useDispatch } from 'react-redux'
 import { getAdminProfileThunk, updateAdminProfileThunk, logoutThunk } from "../../admin-thunk/admin-thunk.js";
 
 const Profile = () => {
-
+  //console.log("Inside Profile component")
   const [image, setImage] = useState("");
 
   const  currentUser  = useSelector((state) => state.admin.currentUser);
   const [adminProfile, setAdminProfile] = useState(currentUser);
-
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -35,7 +35,7 @@ fetchData();
       reader.readAsDataURL(imageFile);
     }
   };
-
+  
   const save = () => { dispatch(updateAdminProfileThunk(adminProfile)); };
 
   const handleLogout = () => {
