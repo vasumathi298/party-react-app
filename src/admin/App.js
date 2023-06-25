@@ -36,10 +36,10 @@ function AdminApp() {
           <main className="content">
             <Topbar setIsSidebar={setIsSidebar} />
             <Routes>
-             <Route path="/" element={<Profile />} />
-             <Route path="/contacts" element={<Contacts />} />
-             <Route path="/calendar" element={<Calendar />} />
-             <Route path="/comments" element={<Comments />} />
+             <Route path="/admin/profile" element={<Profile />} />
+             <Route path="/admin/contacts" element={<Contacts />} />
+             <Route path="/admin/calendar" element={<Calendar />} />
+             <Route path="/admin/comments" element={<Comments />} />
             </Routes>
           </main>
         </div>
