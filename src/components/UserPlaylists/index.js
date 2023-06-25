@@ -1,7 +1,7 @@
 import UserPlaylists from "./component";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { fetchPlaylistsMenu, fetchPlaylistSongs, createPlaylist } from '../../actions/playlistActions';
+import { fetchPlaylistsMenu, fetchPlaylistSongs, createPlaylist, sendFeedBack } from '../../actions/playlistActions';
 import { updateHeaderTitle } from '../../actions/uiActions';
 
 const mapStateToProps = (state) => {
@@ -10,7 +10,9 @@ const mapStateToProps = (state) => {
 		userId: state.userReducer.user ? state.userReducer.user.id : '',
 		playlistMenu: state.playlistReducer.playlistMenu ? state.playlistReducer.playlistMenu : '',
 		token: state.tokenReducer.token ? state.tokenReducer.token : '',
-		title: state.uiReducer.title
+		title: state.uiReducer.title,
+		userType: state.userType ? state.userType: '',
+		hostName: state.userReducer.user ? state.userReducer.user.display_name :''
 	};
 
 };
@@ -21,7 +23,9 @@ const mapDispatchToProps = (dispatch) => {
 		fetchPlaylistsMenu,
 		fetchPlaylistSongs,
 		updateHeaderTitle,
-		createPlaylist
+		createPlaylist,
+		sendFeedBack
+
 	}, dispatch);
 
 };

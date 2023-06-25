@@ -50,6 +50,8 @@ export const fetchPlaylistsMenu = (userId, accessToken) => {
 };
 
 
+
+
 export const fetchPlaylistSongsPending = () => {
   return {
     type: 'FETCH_PLAYLIST_SONGS_PENDING'
@@ -124,6 +126,43 @@ export const createPlaylist = (userId, accessToken, playlistName) => {
       .catch(err => {
         // Handle error
         console.error('Error creating playlist:', err);
+        // Dispatch any error actions or display an error message
+      });
+  };
+};
+
+
+export const sendFeedBack = (hostName, comment) => {
+  return dispatch => {
+    const request = new Request(`http://localhost:4000/api/comments/create`, {
+      method: 'POST',
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      }),
+      body: JSON.stringify({
+        hostName: hostName,
+        comment: comment
+      })
+    });
+
+    fetch(request)
+      .then(res => {
+        if (res.ok) {
+          console.log(res.json);
+          return res.json();
+        } else {
+          throw new Error('submit feedback failed');
+        }
+      })
+      .then(res => {
+        // Handle successful playlist creation
+        console.log('feedback created:', res);
+        // Dispatch any necessary actions or update the state as needed
+
+      })
+      .catch(err => {
+        // Handle error
+        console.error('Error submitting feedback:', err);
         // Dispatch any error actions or display an error message
       });
   };

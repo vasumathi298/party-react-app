@@ -1,8 +1,22 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import "./UserPlaylists.css";
-
+import { useRef } from "react";
 class UserPlaylists extends Component {
+
+  constructor(props) {
+    super(props);
+    this.feedbackRef = React.createRef();
+  }
+
+  submitFeedback = () => {
+    const feedbackValue = this.feedbackRef.current.value;
+    console.log(feedbackValue);
+    this.props.sendFeedBack(this.props.hostName, feedbackValue);
+    this.feedbackRef.current.value = '';
+    // Perform any necessary actions with the feedback
+  };
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.userId !== "" && nextProps.token !== "" 
 ) {
@@ -20,8 +34,8 @@ class UserPlaylists extends Component {
         );
         this.props.updateHeaderTitle(playlist.name);
       };
-      
 
+     
       return (
         <li
           onClick={getPlaylistSongs}
@@ -54,10 +68,22 @@ class UserPlaylists extends Component {
       this.props.fetchPlaylistsMenu(this.props.userId, this.props.token);
 
     };
+    const buttonStyle = {
+      color: 'darkgrey'
+    };
+        
     return (
       <div className="user-playlist-container">
-        <h3 className="user-playlist-header">Playlists <span className="add-icon" onClick={addPlaylist}>+</span></h3>
+        <h3 className="user-playlist-header">Playlists 
+        {this.props.userType === 'host' &&<span className="add-icon" onClick={addPlaylist}>+</span>}
+        </h3>
          {this.props.playlistMenu && this.renderPlaylists()}
+         <br/>
+         <br/>
+         <h3 className="user-playlist-header">Feedback</h3>
+      <textarea ref={this.feedbackRef} id="feedbackInput" rows="4" cols="15"></textarea>
+      <br/>
+      <button style={buttonStyle} onClick={this.submitFeedback}>Submit</button>
       </div>
     );
   }
@@ -72,6 +98,9 @@ UserPlaylists.propTypes = {
   fetchPlaylistSongs: PropTypes.func,
   updateHeaderTitle: PropTypes.func,
   createPlaylist: PropTypes.func,
+  userType:PropTypes.string,
+  sendFeedBack:PropTypes.func,
+  hostName:PropTypes.string
 };
 
 export default UserPlaylists;

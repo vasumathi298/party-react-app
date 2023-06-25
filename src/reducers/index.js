@@ -23,4 +23,5 @@ export default combineReducers({
   soundReducer,
   party: partyReducer,
   joinPartyRed: joinReducer, // Add the join party reducer
+  admin:adminReducer
 });

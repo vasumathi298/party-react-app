@@ -17,7 +17,7 @@ const App = () => {
                         <Routes>
                             <Route path="/Spotify/*"element={<Spotify/>}/>
                             <Route path="/callback" element={<AppMainPage/>}/>
-                            <Route path="/maintenance/" element={<AdminApp/>}/>
+                            <Route path="/maintenance/*" element={<AdminApp/>}/>
                         </Routes>
                     </div>
                 </div>

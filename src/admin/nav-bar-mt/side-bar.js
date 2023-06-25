@@ -12,7 +12,7 @@ import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-
+import { useNavigate } from "react-router-dom";
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -40,6 +40,15 @@ const Sidebar = () => {
 
   const [selected, setSelected] = useState("Dashboard");
 
+  const navigate= useNavigate();
+  const handleRedirect= async () => {
+    try {
+        console.log("inside redirect");
+          navigate("/profile");
+    } catch (e) {
+        alert(e);
+    }
+};
   return (
     <Box
       sx={{width: "250px",
@@ -114,8 +123,7 @@ const Sidebar = () => {
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
             <Item
               title="Profile"
-              to="/admin/profile"
-              icon={<HomeOutlinedIcon />}
+              icon={<HomeOutlinedIcon onClick ={handleRedirect}/>}
               selected={selected}
               setSelected={setSelected}
             />

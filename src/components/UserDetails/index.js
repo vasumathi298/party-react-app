@@ -7,6 +7,7 @@ const mapStateToProps = (state) => {
 		displayName: state.userReducer.user ? state.userReducer.user.display_name : '',
 		userImage: state.userReducer.user && state.userReducer.user.images[0] ? state.userReducer.user.images[0].url : '',
 		emailId: state.userReducer.user? state.userReducer.user.email : '',
+		userType: state.userType ? state.userType: ''
 	};
 
 };

@@ -19,7 +19,7 @@ export const Login = () => {
         try {
             await dispatch(loginThunk({ emailId, password }));
             if(emailId=== "admin@gmail.com" && password === "admin")
-              navigate("/maintenance");
+              navigate('/maintenance');
             else
               navigate("/home");
         } catch (e) {
