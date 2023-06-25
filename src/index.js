@@ -1,22 +1,15 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import { createStore, applyMiddleware } from "redux";
-import thunk from "redux-thunk";
-import { Provider } from "react-redux";
-import reducers from "./reducers";
-import App from "./App";
-import AppRouter from "./AppRouter";
+import ReactDOM from "react-dom/client";
+import "./admin/index.css";
+import AdminApp from "./admin/App";
 
-//create the redux store
-const store = createStore(
-  reducers,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-  applyMiddleware(thunk)
-);
+import { BrowserRouter } from "react-router-dom";
 
-ReactDOM.render(
-  <Provider store={store}>
-    <App/>
-  </Provider>,
-  document.getElementById("root")
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <AdminApp />
+    </BrowserRouter>
+  </React.StrictMode>
 );
