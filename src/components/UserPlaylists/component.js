@@ -7,6 +7,7 @@ class UserPlaylists extends Component {
   constructor(props) {
     super(props);
     this.feedbackRef = React.createRef();
+    
   }
 
   submitFeedback = () => {
@@ -21,6 +22,7 @@ class UserPlaylists extends Component {
     if (nextProps.userId !== "" && nextProps.token !== "" 
 ) {
       this.props.fetchPlaylistsMenu(nextProps.userId, nextProps.token);
+
     }
   }
 
@@ -52,6 +54,7 @@ class UserPlaylists extends Component {
     });
   }
   
+  
 
   render() {
     const addPlaylist =()=>{
@@ -71,11 +74,16 @@ class UserPlaylists extends Component {
     const buttonStyle = {
       color: 'darkgrey'
     };
+    this.props.getUserType(this.props.hostName);
+
+    console.log("usertype is");
+    console.log(this.props.userType.userType);
+  
         
     return (
       <div className="user-playlist-container">
         <h3 className="user-playlist-header">Playlists 
-        {this.props.userType === 'host' &&<span className="add-icon" onClick={addPlaylist}>+</span>}
+        {this.props.userType.userType === 'host' &&<span className="add-icon" onClick={addPlaylist}>+</span>}
         </h3>
          {this.props.playlistMenu && this.renderPlaylists()}
          <br/>
@@ -98,9 +106,10 @@ UserPlaylists.propTypes = {
   fetchPlaylistSongs: PropTypes.func,
   updateHeaderTitle: PropTypes.func,
   createPlaylist: PropTypes.func,
-  userType:PropTypes.string,
   sendFeedBack:PropTypes.func,
-  hostName:PropTypes.string
+  hostName:PropTypes.string,
+  getUserType:PropTypes.func,
+  userType:PropTypes.string
 };
 
 export default UserPlaylists;

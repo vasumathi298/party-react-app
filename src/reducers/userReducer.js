@@ -8,6 +8,12 @@ export const userReducer = (state = {}, action) => {
       user: action.user,
       fetchUserError: false
     };
+    case "FETCH_USER_TYPE_SUCCESS":
+      return {
+        ...state,
+        userType: action.userType,
+        fetchUserError: false
+      };
 
   case "FETCH_USER_ERROR":
     return {
