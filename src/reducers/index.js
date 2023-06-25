@@ -10,6 +10,7 @@ import browseReducer from './browseReducer';
 import soundReducer from './soundReducer';
 import { joinReducer } from "../Spotify/reducers/joinReducer";
 import { partyReducer } from "../Spotify/reducers/partyReducer";
+
 export default combineReducers({
   userReducer,
   tokenReducer,
