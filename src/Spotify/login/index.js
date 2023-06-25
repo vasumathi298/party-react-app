@@ -18,7 +18,10 @@ export const Login = () => {
     const handleLogin = async () => {
         try {
             await dispatch(loginThunk({ emailId, password }));
-            navigate("/home");
+            if(emailId=== "admin@gmail.com" && password === "admin")
+              navigate("/maintenance");
+            else
+              navigate("/home");
         } catch (e) {
             alert(e);
         }
