@@ -12,6 +12,7 @@ import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import "../index.css"
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -32,7 +33,6 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 };
 
 const Sidebar = () => {
-
 
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -71,6 +71,7 @@ const Sidebar = () => {
             onClick={() => setIsCollapsed(!isCollapsed)}
             icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
             style={{
+              
               margin: "10px 0 20px 0",
               color: colors.grey[100],
             }}

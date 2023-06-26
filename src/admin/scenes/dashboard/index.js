@@ -9,11 +9,10 @@ import { getAdminProfileThunk, updateAdminProfileThunk, logoutThunk } from "../.
 
 const Profile = () => {
   //console.log("Inside Profile component")
-  const [image, setImage] = useState("");
 
   const  currentUser  = useSelector((state) => state.admin.currentUser);
   const [adminProfile, setAdminProfile] = useState(currentUser);
-  
+  console.log("the currentUser", currentUser)
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -24,17 +23,7 @@ const Profile = () => {
     }
 fetchData();
 },[]);
-  
-  const handleImageUpload = (event) => {
-    const imageFile = event.target.files[0];
-    if (imageFile) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setImage(reader.result);
-      };
-      reader.readAsDataURL(imageFile);
-    }
-  };
+  console.log("adminProfile", adminProfile)
   
   const save = () => { dispatch(updateAdminProfileThunk(adminProfile)); };
 
@@ -42,6 +31,7 @@ fetchData();
     // Handle logout logic here
     try {
       dispatch(logoutThunk());
+      navigate("/Spotify/create-party")
      
    } catch (e) {
      alert(e);
@@ -59,9 +49,9 @@ fetchData();
     <Box display="flex" flexDirection="column" alignItems="flex-start">
       <Box marginBottom="10px" display="flex" alignItems="center">
         <label htmlFor="firstname" style={{ width: '100px' }}>Firstname</label>
-        <input id="firstname" value={`${adminProfile.firstname}`} onChange={(event) => {
+        <input id="firstname" value={adminProfile.firstName} onChange={(event) => {
         const newProfile = {
-         ...adminProfile, firstname: event.target.value,
+         ...adminProfile, firstName: event.target.value,
         };
         setAdminProfile(newProfile);
        }} style={{ flex: 1, fontSize: '16px', marginLeft: '10px', border: '1px solid black', padding: '5px'}} />
@@ -69,9 +59,9 @@ fetchData();
   
       <Box marginBottom="10px" display="flex" alignItems="center">
         <label htmlFor="lastname" style={{ width: '100px' }}>Lastname</label>
-        <input id="lastname" value={`${adminProfile.lastname}`} onChange={(event) => {
+        <input id="lastname" value={adminProfile.lastName} onChange={(event) => {
         const newProfile = {
-         ...adminProfile, lastname: event.target.value,
+         ...adminProfile, lastName: event.target.value,
         };
         setAdminProfile(newProfile);
        }} style={{ flex: 1, fontSize: '16px', marginLeft: '10px', border: '1px solid black', padding: '5px'  }} />
@@ -79,38 +69,24 @@ fetchData();
   
       <Box marginBottom="10px" display="flex" alignItems="center">
         <label htmlFor="email" style={{ width: '100px' }}>Email</label>
-        <input id="email" value={`${adminProfile.email}`} onChange={(event) => {
+        <input id="email" value={adminProfile.emailId} onChange={(event) => {
         const newProfile = {
-         ...adminProfile, email: event.target.value,
+         ...adminProfile, emailId: event.target.value,
         };
         setAdminProfile(newProfile);
        }}style={{ flex: 1, fontSize: '16px', marginLeft: '10px', border: '1px solid black', padding: '5px' }} />
       </Box>
     
       <Box marginBottom="10px" display="flex" alignItems="center">
-        <label htmlFor="location" style={{ width: '100px' }}>Location</label>
-        <input id="location" value={`${adminProfile.location}`} onChange={(event) => {
+        <label htmlFor="username" style={{ width: '100px' }}>UserName</label>
+        <input id="username" value={adminProfile.username} onChange={(event) => {
         const newProfile = {
-         ...adminProfile, location: event.target.value,
+         ...adminProfile, username: event.target.value,
         };
         setAdminProfile(newProfile);
        }}style={{ flex: 1, fontSize: '16px', marginLeft: '10px', border: '1px solid black', padding: '5px' }} />
       </Box>
-      <Box className="mt-2">
-          
-          <Box marginBottom="10px" display="flex" alignItems="center">
-          <label>Image</label>
-            <input
-              type="file"
-              className="form-control"
-              id="file-upload"
-              accept="image/*"
-              onChange={handleImageUpload}
-              style={{ marginLeft: '10px', marginTop: '5px' }}
-            />
-            </Box>
-            {image && <img src={image} alt="Preview" style={{ marginLeft: '10px', maxWidth: '100%', height: 'auto' }} />}
-        </Box>
+      
 
         <Box display="flex" justifyContent="flex-end" marginTop="20px">
           <Button variant="contained" color="secondary" onClick={save} style={{ marginRight: '10px' }}>

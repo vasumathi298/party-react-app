@@ -36,7 +36,6 @@ const Join = () => {
     return (
         <>
         
-        <form>
         <div className="login-card-container">
       <div className="login-card">
         <div className="login-card-logo">
@@ -51,7 +50,7 @@ const Join = () => {
  
           <input type="text" 
                 placeholder="Search..." 
-                classname='input-space' 
+                className='input-space' 
                 id="search-home" 
                 value={search} 
                 onChange={(e) => setSearch(e.target.value)} autoFocus/>
@@ -96,7 +95,6 @@ const Join = () => {
         
       </div>
     </div>    
-    </form>
 
         </>
     );

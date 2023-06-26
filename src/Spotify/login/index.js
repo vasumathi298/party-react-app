@@ -15,18 +15,22 @@ export const Login = () => {
     const dispatch = useDispatch();
     //console.log(currentUser);
     const navigateToRegistration = () => {
+      console.log("in the registre")
         navigate ('/register');
     }
 
     const handleLogin = async () => {
         try {
-            await dispatch(loginThunk({ emailId, password }));
-            if(emailId=== "admin@gmail.com" && password === "admin")
-              navigate("/maintenance/");
-            else
-              navigate("/home");
+          console.log("in the login")
+            const user = dispatch(loginThunk({ emailId, password }))
+            console.log(user)
+            if(emailId=== "admin@gmail.com" && password === "admin"){
+               navigate("/maintenance/");
+               console.log("redirecting to maintenance")
+             }
+             
         } catch (e) {
-            alert(e);
+          alert(e);
         }
     };
     return (
@@ -60,7 +64,7 @@ export const Login = () => {
             
           </div>
           
-          <button type="submit" className="btn btn-primary mt-2" onClick={handleLogin}>Login</button>
+          <button type="submit" className="btn btn-primary mt-2" onClick={handleLogin}>Login Button</button>
             </form>
         <div className="login-card-footer">
         <p>Don't have an account? <button onClick={navigateToRegistration} className='btn btn-primary mt-2'>Register Here</button></p>

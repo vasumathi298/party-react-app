@@ -4,7 +4,10 @@ import * as service from "./services.js";
 
 export const getAdminProfileThunk = createAsyncThunk(
     "admin/getAdminProfile",
-    async () => await service.getAdminProfile()
+    async () => {
+      const profile = await service.getAdminProfile()
+      return profile}
+      
    );
    
    export const deleteEventThunk = createAsyncThunk(
@@ -47,6 +50,6 @@ export const getAdminProfileThunk = createAsyncThunk(
     export const logoutThunk =
            createAsyncThunk(
              'admin/logout',
-             async (admin_id) =>{
-              await service.logout(admin_id)
+             async () =>{
+              await service.logout()
              })

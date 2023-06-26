@@ -6,8 +6,7 @@ const API_BASE = process.env.REACT_APP_API_BASE;
 
 export const getAdminProfile = async () => {
   
-  const response = await axios.get(`${ADMIN_API}/profile`, { withCredentials: true , headers: {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'}});
-    //const response = await axios.get(`${ADMIN_API}/profile`);
+  const response = await axios.get(`${ADMIN_API}/profile`,{ withCredentials: true , headers: {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'}});
     const profile = response.data;
     return profile;
    }
@@ -20,7 +19,7 @@ export const deleteEvent = async (id) => {
 
 export const updateAdminProfile = async (profile) => {
     const response = await axios
-      .put(`${ADMIN_API}/profile`, profile);
+      .put(`${ADMIN_API}/profile`, profile, { withCredentials: true , headers: {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'}});
     return profile;
   }
   
@@ -40,7 +39,7 @@ export const updateAdminProfile = async (profile) => {
     return response.data;
    }
 
-   export const logout = async (admin_id) => {
+   export const logout = async () => {
     const response = await axios.post(`${ADMIN_API}/logout`)
     return response.data;
    }

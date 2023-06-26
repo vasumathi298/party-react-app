@@ -32,49 +32,31 @@ fetchData();
 
 //console.log(mockDataContacts)
   const columns = [
-    { field: "id", headerName: "ID", flex: 0.5 },
-    { field: "registrarId", headerName: "Registrar ID" },
+    { field: "_id", headerName: "ID", flex: 0.5 },
     {
-      field: "name",
-      headerName: "Name",
+      field: "username",
+      headerName: "UserName",
       flex: 1,
       cellClassName: "name-column--cell",
     },
     {
-      field: "age",
-      headerName: "Age",
-      type: "number",
+      field: "firstName",
+      headerName: "FirstName",
       headerAlign: "left",
-      align: "left",
+      cellClassName: "name-column--cell",
     },
     {
-      field: "phone",
-      headerName: "Phone Number",
-      flex: 1,
+      field: "lastName",
+      headerName: "LastName",
+      headerAlign: "left",
+      cellClassName: "name-column--cell",
     },
     {
-      field: "email",
+      field: "emailId",
       headerName: "Email",
       flex: 1,
-    },
-    {
-      field: "address",
-      headerName: "Address",
-      flex: 1,
-    },
-    {
-      field: "city",
-      headerName: "City",
-      flex: 1,
-    },
-    {
-      field: "zipCode",
-      headerName: "Zip Code",
-      flex: 1,
-    },
+    }
   ];
-
-
 
   return (
     <Box m="20px">
@@ -115,8 +97,9 @@ fetchData();
         }}
       >
         <DataGrid
-          rows={hosts}
+          rows={hostDetails}
           columns={columns}
+          getRowId={(row) => row._id}
           components={{ Toolbar: GridToolbar }}
         />
       </Box>

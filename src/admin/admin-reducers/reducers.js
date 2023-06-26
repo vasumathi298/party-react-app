@@ -4,7 +4,7 @@ import { updateAdminProfileThunk, getAdminProfileThunk, getAllEventDetailsThunk,
 
 const authSlice = createSlice({
     name: "admin",
-    initialState: { currentUser: {firstname:"", lastname: "", email: "", location:""}, 
+    initialState: { currentUser: {firstName:"", lastName:"", emailId:"", username:""}, 
                 eventDetails:[], 
                 hostComments:[], 
                 allHostDetails: [] },

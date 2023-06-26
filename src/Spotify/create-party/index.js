@@ -46,7 +46,7 @@ const CreateParty = () => {
     return (
 
         <>
-        <form onSubmit={handleSubmit}>
+       
         <div className="login-card-container">
       <div className="login-card">
         <div className="login-card-logo">
@@ -55,11 +55,11 @@ const CreateParty = () => {
         <div className="login-card-header">
           <h1>Create Party</h1>
         </div>
-        <form className="login-card-form">
+        <form className="login-card-form" onSubmit={handleSubmit}>
           <div className="form-item">
           <input type="text" 
                 placeholder="Enter Party Title" 
-                classname='input-space' 
+                className='input-space' 
                 id="title" 
                 value={title} 
                 onChange={(e) => setTitle(e.target.value)} autoFocus required/>
@@ -69,7 +69,7 @@ const CreateParty = () => {
           <div className="form-item">  
           <input type="text" 
                 placeholder="Enter the address" 
-                classname='input-space' 
+                className='input-space' 
                 id="address" 
                 name="address"
                 value={address} 
@@ -79,7 +79,7 @@ const CreateParty = () => {
           <div className="form-item">
           <input type="number" 
                 placeholder="Enter Party capacity" 
-                classname='input-space' 
+                className='input-space' 
                 id="capacity" 
                 name="capacity"
                 value={capacity}
@@ -89,7 +89,7 @@ const CreateParty = () => {
           <div className="form-item">
           <input type="date" 
                 placeholder="Event date" 
-                classname='input-space' 
+                className='input-space' 
                 id="date" 
                 name="date"
                 value={date} 
@@ -99,7 +99,7 @@ const CreateParty = () => {
             <div className="form-item">
             <input type="text" 
                 placeholder="Host Name" 
-                classname='input-space' 
+                className='input-space' 
                 id="hostName" 
                 name="hostName"
                 value={hostName}
@@ -111,7 +111,6 @@ const CreateParty = () => {
         
       </div>
     </div>    
-    </form>
         </>
 
     );

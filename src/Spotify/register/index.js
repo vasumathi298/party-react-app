@@ -37,7 +37,6 @@ export const Register = () => {
     return(
 
         <>
-         <form>
         <div className="login-card-container">
       <div className="login-card">
         <div className="login-card-logo">
@@ -51,7 +50,7 @@ export const Register = () => {
           <div className="form-item">
           <input type="text" 
                 placeholder="Enter First Name" 
-                classname='input-space' 
+                className='input-space' 
                 id="register_fname" 
                 name="ufname"
                 value={firstName} 
@@ -62,7 +61,7 @@ export const Register = () => {
             
           <input type="text" 
                 placeholder="Enter Last Name" 
-                classname='input-space' 
+                className='input-space' 
                 id="register_lname" 
                 name="ulname"
                 value={lastName} 
@@ -74,7 +73,7 @@ export const Register = () => {
             
           <input type="text" 
                 placeholder="Enter Username" 
-                classname='input-space' 
+                className='input-space' 
                 id="register_uname" 
                 name="uname"
                 value={username} 
@@ -86,7 +85,7 @@ export const Register = () => {
             
           <input type="email" 
                 placeholder="Email" 
-                classname='input-space' 
+                className='input-space' 
                 id="register_email" 
                 name="email"
                 value={emailId} 
@@ -98,7 +97,7 @@ export const Register = () => {
             
             <input type="password" 
                 placeholder="Confirm Password" 
-                classname='input-space' 
+                className='input-space' 
                 id="register_password" 
                 name="password"
                 value={password} 
@@ -133,7 +132,7 @@ export const Register = () => {
        </div>
       </div>
     </div>    
-    </form>
+    
         </>
         
         )
