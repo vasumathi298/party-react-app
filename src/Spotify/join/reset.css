@@ -1,0 +1,64 @@
+/* Add .login before the selectors to target elements with the login class */
+
+.login *:where(:not(html, iframe, canvas, img, svg, video):not(svg *, symbol *)) {
+    display: revert;
+}
+
+.login *,
+.login *::before,
+.login *::after {
+    box-sizing: border-box;
+}
+
+.login a,
+.login button {
+    cursor: revert;
+}
+
+.login ol,
+.login ul,
+.login menu {
+    list-style: none;
+}
+
+.login img {
+    max-width: 100%;
+}
+
+.login table {
+    border-collapse: collapse;
+}
+
+.login input,
+.login textarea {
+    -webkit-user-select: auto;
+}
+
+.login textarea {
+    white-space: revert;
+}
+
+.login meter {
+    -webkit-appearance: revert;
+    appearance: revert;
+}
+
+.login ::placeholder {
+    color: unset;
+}
+
+.login :where([hidden]) {
+    display: none;
+}
+
+.login :where([contenteditable]:not([contenteditable="false"])) {
+    -moz-user-modify: read-write;
+    -webkit-user-modify: read-write;
+    overflow-wrap: break-word;
+    -webkit-line-break: after-white-space;
+    -webkit-user-select: auto;
+}
+
+.login :where([draggable="true"]) {
+    -webkit-user-drag: element;
+}
